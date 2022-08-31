@@ -31,8 +31,8 @@ class ContactsViewController: UITableViewController {
         
         var content = cell.defaultContentConfiguration()
         
-        content.text = contact.name
-        content.secondaryText = contact.secondName
+        content.text = contact.fullName
+
         
         cell.contentConfiguration = content
         
@@ -42,6 +42,13 @@ class ContactsViewController: UITableViewController {
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    }
+        guard let contactDetailsVC = segue.destination as? ContactDetailsViewController else
+        { return }
+        
+        guard let index = tableView.indexPathForSelectedRow else { return }
+        let contact = contactList[index.row]
+        
+        contactDetailsVC.singlPerson = contact
+        }
 
 }
